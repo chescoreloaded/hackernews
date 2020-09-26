@@ -1,5 +1,6 @@
 import React , { Component } from 'react';
 import axios from 'axios';
+//import PropTypes from 'prop-types';
 import './App.css';
 import {DEFAULT_QUERY
         ,DEFAULT_HPP
@@ -17,6 +18,8 @@ import {DEFAULT_QUERY
 //     return item.title.toLowerCase().includes(searchTerm.toLowerCase());
 //   }
 // }
+
+
 
 
 class App extends Component {
@@ -154,6 +157,8 @@ class App extends Component {
 }
 
 
+
+
 // class Search extends Component{
 //   render(){
 //     const {value, onChange, children}= this.props;
@@ -213,12 +218,29 @@ class App extends Component {
 // }
 
 
-const Search = ( {value,onChange,onSubmit,children}) => 
+class Search extends Component{
+
+  componentDidMount(){
+    if(this.input){
+      this.input.focus();
+    }
+  }
+
+  render(){
+    
+    const {value,
+           onChange,
+           onSubmit,
+           children
+         } = this.props;
+
+    return(
       <form onSubmit={onSubmit}>
         {children}
         <input type="text"
                value ={value}
                onChange={onChange}
+               ref={el=>this.input=el}
         />
         <button
         type="submit"        
@@ -226,6 +248,28 @@ const Search = ( {value,onChange,onSubmit,children}) =>
         {children}
         </button>
       </form>
+      );
+
+
+  }
+}
+
+
+// const Search = ( {value,onChange,onSubmit,children}) => 
+//       <form onSubmit={onSubmit}>
+//         {children}
+//         <input type="text"
+//                value ={value}
+//                onChange={onChange}
+//         />
+//         <button
+//         type="submit"        
+//         >
+//         {children}
+//         </button>
+//       </form>
+
+
 
 const Table = ({list,onDismiss})=>
       <div className="table">
